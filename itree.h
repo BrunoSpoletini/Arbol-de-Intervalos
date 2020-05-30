@@ -12,8 +12,9 @@ typedef struct _intervalo{
 
 
 typedef struct _iNodo{
-  intervalo *dato;
-  int altura;
+  intervalo *intervalo;
+  int maximo;
+  int factorBalance;
   struct _iNodo *ant;
   struct _iNodo *sig;
 } iNodo;
