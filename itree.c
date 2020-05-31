@@ -1,6 +1,11 @@
 #include "itree.h"
 #include <stdlib.h>
 
+// :DUDAS:
+// en la estructura del arbol, poner el intervalo como un puntero a intervalo
+// "intervalo *intervalo" ó "intervalo intervalo"?, cada uno tiene sus beneficios
+
+
 iTree itree_crear(){
     iTree raiz = malloc(sizeof(iNodo));
     raiz->izq = NULL;
@@ -18,12 +23,11 @@ void itree_destruir(iTree nodo){
     }
 }
 
-iTree rotar_izq(iTree nodo){
-    iTree aux = nodo->der;
-    nodo->der = nodo->der->izq;
-    nodo->der->izq = nodo;
-    aux->izq = nodo;
-    return aux;
+iTree rotar_izq(iTree padre){
+    iTree hijoDer = padre->der;
+    padre->der = hijoDer->izq;
+    hijoDer->izq = padre;
+    return hijoDer;
 }
 
 iTree rotar_der(iTree padre){
@@ -37,9 +41,23 @@ iTree itree_insertar(iTree raiz, intervalo dato){
     intervalo* nuevoIntervalo = malloc(sizeof(intervalo));
     nuevoIntervalo->inicio = dato.inicio;
     nuevoIntervalo->final = dato.final;
+    // se podra poner como nuevoIntervalo = dato ? Probar cuando el resto ande
 
-    iTree nuevoNodo = malloc(sizeof(iTree));
+    iTree nuevoNodo = itree_crear();
     nuevoNodo->intervalo = nuevoIntervalo;
+
+    while(raiz != NULL){
+        if(raiz->maximo < nuevoNodo->intervalo->final)
+            raiz->maximo = nuevoNodo->intervalo->final;
+        if((nuevoNodo->intervalo->inicio) < (raiz->intervalo->inicio)){
+            raiz = raiz->izq;
+        }
+        else{
+            raiz = raiz->der;
+        }
+    }
+
+    raiz = nuevoNodo;
     
     return raiz;
 }

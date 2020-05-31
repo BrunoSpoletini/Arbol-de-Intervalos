@@ -6,3 +6,8 @@ gcc -c ./dlist.c
 gcc -o ejecutable dlist.c main.c
 
 gcc -Wall -Werror itree.c
+
+para balancear un arbol, hay que modificar el valor mas profundo que este
+desbalanceado
+
+factor de balance = altura derecha - altura izq
