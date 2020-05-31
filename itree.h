@@ -25,7 +25,7 @@ typedef iNodo *iTree;
 iTree itree_crear();
 
 // Destruye un arbol de intervalos
-void itree_destruir(iTree raiz);
+void itree_destruir(iTree nodo);
 
 // Inserta un intervalo en un arbol de intervalos
 iTree itree_insertar(iTree raiz, intervalo dato);

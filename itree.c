@@ -9,9 +9,13 @@ iTree itree_crear(){
     return raiz;
 }
 
-void itree_destruir(iTree raiz){
-    free(raiz->intervalo);
-    free(raiz);
+void itree_destruir(iTree nodo){
+    if (nodo != NULL){
+        itree_destruir(nodo->izq);
+        itree_destruir(nodo->der);
+        free(nodo->intervalo);
+        free(nodo);
+    }
 }
 
 iTree rotar_izq(iTree nodo){
@@ -30,6 +34,13 @@ iTree rotar_der(iTree padre){
 }
 
 iTree itree_insertar(iTree raiz, intervalo dato){
+    intervalo* nuevoIntervalo = malloc(sizeof(intervalo));
+    nuevoIntervalo->inicio = dato.inicio;
+    nuevoIntervalo->final = dato.final;
+
+    iTree nuevoNodo = malloc(sizeof(iTree));
+    nuevoNodo->intervalo = nuevoIntervalo;
+    
     return raiz;
 }
 
