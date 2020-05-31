@@ -15,8 +15,8 @@ typedef struct _iNodo{
   intervalo *intervalo;
   int maximo;
   int factorBalance;
-  struct _iNodo *ant;
-  struct _iNodo *sig;
+  struct _iNodo *izq;
+  struct _iNodo *der;
 } iNodo;
 
 typedef iNodo *iTree;
@@ -42,5 +42,14 @@ void itree_recorrer_dfs(iTree raiz);
 
 // Recorrido primero a lo ancho del arbol de intervalos
 void itree_recorrer_bfs(iTree raiz);
+
+
+// agregar descripcion
+iTree rotar_izq(iTree nodoPadre);
+
+iTree rotar_der(iTree nodoPadre);
+
+
+
 
 #endif /* __ITREE_H__ */
