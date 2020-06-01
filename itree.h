@@ -44,10 +44,41 @@ void itree_recorrer_dfs(iTree raiz);
 void itree_recorrer_bfs(iTree raiz);
 
 
-// agregar descripcion
+
+
+//----------Funciones auxiliares------------//
+// Devuelve un nodo de tipo iTree que contiene al intervalo dato
+iTree llenar_nodo(intervalo dato);
+
+// Actualiza la altura de un nodo dado
+void actualizar_altura(iTree nodo);
+
+// Devuelve la altura de un nodo, o -1 en caso de que reciba NULL
+int altura(iTree nodo);
+
+// Recibe un nodo, y corrige el desbalance de las ramas
+iTree balancear(iTree nodo);
+
+// Imprime por pantalla la información de los nodos de la altura dada
+void imprimirPorNivel(iTree nodo, int nivel);
+
+// Realiza una rotacion hacia la izquierda con respecto al nodo recibido
 iTree rotar_izq(iTree nodoPadre);
 
+// Realiza una rotacion hacia la derecha con respecto al nodo recibido
 iTree rotar_der(iTree nodoPadre);
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

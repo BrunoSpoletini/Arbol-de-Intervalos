@@ -63,12 +63,9 @@ iTree balancear(iTree nodo){
              // desequilibrio hacia la izquierda!
             if (altura(nodo->izq->izq) >= altura(nodo->izq->der)){
                 // desequilibrio simple
-                ///////nodo = rotar_izq(nodo);
                 nodo = rotar_der(nodo);
             }
             else{ //desequilibrio doble
-                //////nodo->izq = rotar_der(nodo->izq);
-                //////nodo = rotar_izq(nodo);
                 nodo->izq = rotar_izq(nodo->izq);
                 nodo = rotar_der(nodo);
             }
@@ -77,11 +74,8 @@ iTree balancear(iTree nodo){
             { // desequilibrio hacia la derecha! 
             if (altura (nodo->der->der) >= altura (nodo->der->izq))
                 // desequilibrio simple
-                //////nodo = rotar_der(nodo);
                 nodo = rotar_izq(nodo);
             else{ //desequilibrio doble
-                /////nodo->der = rotar_izq(nodo->der);
-                /////nodo = rotar_der(nodo);
                 nodo->der = rotar_der(nodo->der);
                 nodo = rotar_izq(nodo);
             }
@@ -113,43 +107,27 @@ iTree itree_insertar(iTree nodo, intervalo dato){
 void itree_recorrer_dfs(iTree nodo){
     if(nodo != NULL){
         itree_recorrer_dfs(nodo->izq);
-        printf("[%.2f, %.2f]  %d\n",nodo->intervalo->inicio, nodo->intervalo->final, nodo->maximo);
+        printf("[%.2f, %.2f]  %.2f\n",nodo->intervalo->inicio, nodo->intervalo->final, nodo->maximo);
         itree_recorrer_dfs(nodo->der);
     }
 }
 
-void itree_recorrer_bfs(iTree nodo){
-
-    if(nodo != NULL){
-    printf("[%.2f, %.2f]\n",nodo->intervalo->inicio, nodo->intervalo->final);
+void imprimirPorNivel(iTree nodo, int nivel){
+    if(nodo == NULL)
+        return;
+    if(nivel == 0){
+        printf("%.2f ",nodo->intervalo->inicio);
     }
-
-}
-
-
-
-
-
-/*/
-void printGivenLevel(iTree nodo, int level) 
-{
-    if (nodo == NULL) 
-        return; 
-    if (level == 0){
-        printf("%.2f\n",nodo->intervalo->inicio);
-    }
-    else if (level > 1) 
-    { 
-        printGivenLevel(nodo->izq, level-1); 
-        printGivenLevel(nodo->der, level-1); 
+    else if(nivel > 0){
+        imprimirPorNivel(nodo->izq, nivel-1);
+        imprimirPorNivel(nodo->der, nivel-1);
     } 
 } 
 
-void itree_recorrer_bfs(iTree nodo) 
-{ 
+void itree_recorrer_bfs(iTree nodo){ 
     int i; 
-    for (i=0; i<=(nodo->altura); i++) {
-        printf("\n");
-        printGivenLevel(nodo, i); 
+    for (i = 0; i <= (nodo->altura); i++){
+        imprimirPorNivel(nodo, i);
     }
-} /*/
+    printf("\n");
+}

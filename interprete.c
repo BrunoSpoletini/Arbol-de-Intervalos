@@ -13,6 +13,8 @@ int main(){
     iTree raiz = itree_crear();
 
     printf("Ingrese i para insertar, e para eliminar, ? para intersecar, dfs, bfs, salir \n");
+
+    /*/
     do{
         gets(entrada);
         sscanf(entrada, "%s [%lf,%lf] \n", comando, &intervaloAux.inicio, &intervaloAux.final);
@@ -20,13 +22,13 @@ int main(){
         if (strcmp(comando,"i") == 0)
             raiz = itree_insertar(raiz, intervaloAux);
         
-/*/
-        else if (strcmp(comando,"e") == 0)
-            itree_eliminar(raiz, intervaloAux);
 
-        else if (strcmp(comando,"?") == 0)
-            itree_intersecar(raiz, intervaloAux);
-/*/
+    //    else if (strcmp(comando,"e") == 0)
+     //       itree_eliminar(raiz, intervaloAux);
+
+     //   else if (strcmp(comando,"?") == 0)
+     //       itree_intersecar(raiz, intervaloAux);
+
         else if (strcmp(comando,"dfs") == 0)
             itree_recorrer_dfs(raiz);
 
@@ -43,7 +45,34 @@ int main(){
         //printf("comando: %s\n",comando);
         //printf("inicio: %lf\n",inicio);
         //printf("final: %lf\n",final);
-    } while (salir == 0);
+    } while (salir == 0);/**/
+
+
+    while(salir == 0){
+        gets(entrada);
+        sscanf(entrada, "%s [%lf,%lf] \n", comando, &intervaloAux.inicio, &intervaloAux.final);
+
+        if (strcmp(comando,"i") == 0)
+            raiz = itree_insertar(raiz, intervaloAux);
+/*/
+        else if (strcmp(comando,"e") == 0)
+            itree_eliminar(raiz, intervaloAux);
+
+        else if (strcmp(comando,"?") == 0)
+            itree_intersecar(raiz, intervaloAux);
+/*/
+        else if (strcmp(comando,"dfs") == 0)
+            itree_recorrer_dfs(raiz);
+
+        else if (strcmp(comando,"bfs") == 0)
+            itree_recorrer_bfs(raiz);
+
+        else if (strcmp(comando,"salir") == 0)
+            salir = 1;
+        else
+            printf("Comando no reconocido intente denuevo \n");
+    }
+
     itree_destruir(raiz);
 
     return 0;
