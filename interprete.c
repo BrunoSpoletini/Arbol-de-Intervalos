@@ -1,12 +1,13 @@
+#include "itree.h"
 #include <stdio.h>
 #include <string.h>
-#include <itree.h>
+
 
 int main(){
 
     char entrada[50], comando[10];
     int salir = 0;
-    double inicio, final;
+    //double inicio, final;
     intervalo intervaloAux;
 
     iTree raiz = itree_crear();
@@ -18,7 +19,7 @@ int main(){
 
         if (strcmp(comando,"i") == 0)
             itree_insertar(raiz, intervaloAux);
-
+/*/
         else if (strcmp(comando,"e") == 0)
             itree_eliminar(raiz, intervaloAux);
 
@@ -30,14 +31,13 @@ int main(){
 
         else if (strcmp(comando,"bfs") == 0)
             itree_recorrer_bfs(raiz);
-
+/*/
         else if (strcmp(comando,"salir") == 0)
             salir = 1;
 
         else
             printf("Comando no reconocido intente denuevo \n");
         
-
         //printf("entrada: %s\n",entrada);
         //printf("comando: %s\n",comando);
         //printf("inicio: %lf\n",inicio);

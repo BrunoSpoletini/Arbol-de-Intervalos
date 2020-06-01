@@ -2,11 +2,6 @@
 #include <math.h>
 #include <stdlib.h>
 
-// :DUDAS:
-// en la estructura del arbol, poner el intervalo como un puntero a intervalo
-// "intervalo *intervalo" ó "intervalo intervalo"?, cada uno tiene sus beneficios
-
-
 iTree itree_crear(){
     return NULL;
 }
@@ -112,7 +107,7 @@ iTree itree_insertar(iTree nodo, intervalo dato){
     
     return nodo;
 }
-
+/*/
 int main(){
     iTree raiz = itree_crear();
 
@@ -142,4 +137,4 @@ int main(){
 
     itree_destruir(raiz);
     return 0;
-}
+}/*/
