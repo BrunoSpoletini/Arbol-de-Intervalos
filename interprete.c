@@ -27,16 +27,16 @@ int main(){
 /*/
         else if (strcmp(comando,"?") == 0)
             itree_intersecar(raiz, intervaloAux);
+            /*/
 
         else if (strcmp(comando,"dfs") == 0)
             itree_recorrer_dfs(raiz);
 
+/*/
+
         else if (strcmp(comando,"bfs") == 0)
             itree_recorrer_bfs(raiz);
-/*/
-        else if (strcmp(comando,"o") == 0)
-            inorder(raiz);
-/*/
+
         else if (strcmp(comando,"raiz") == 0){
             printf("[%lf, %lf]  max = %lf \n", raiz->intervalo->inicio, raiz->intervalo->final, raiz->maximo);
         }

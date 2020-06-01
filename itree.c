@@ -74,6 +74,7 @@ iTree balancear(iTree nodo){
             else{ //desequilibrio doble
                 //////nodo->izq = rotar_der(nodo->izq);
                 //////nodo = rotar_izq(nodo);
+                nodo->izq = rotar_izq(nodo->izq);
                 nodo = rotar_der(nodo);
             }
         }
@@ -86,7 +87,7 @@ iTree balancear(iTree nodo){
             else{ //desequilibrio doble
                 /////nodo->der = rotar_izq(nodo->der);
                 /////nodo = rotar_der(nodo);
-                nodo->izq = rotar_der(nodo->izq);
+                nodo->der = rotar_der(nodo->der);
                 nodo = rotar_izq(nodo);
             }
         }
@@ -167,11 +168,10 @@ iTree itree_eliminar(iTree nodo, intervalo dato)
     return nodo; 
 } 
 
-void inorder(iTree raiz) { 
-    if (raiz == NULL) 
-        return; 
-  
-    inorder(raiz->izq); 
-    printf("[%lf, %lf]  max = %lf \n", raiz->intervalo->inicio, raiz->intervalo->final, raiz->maximo);
-    inorder(raiz->der); 
-} 
+void itree_recorrer_dfs(iTree nodo){
+    if(nodo != NULL){
+        itree_recorrer_dfs(nodo->izq);
+        printf("[%.2f, %.2f] max= %.2f \n",nodo->intervalo->inicio, nodo->intervalo->final, nodo->maximo);
+        itree_recorrer_dfs(nodo->der);
+    }
+}

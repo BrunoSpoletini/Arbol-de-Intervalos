@@ -48,9 +48,6 @@ void itree_recorrer_dfs(iTree raiz);
 // Recorrido primero a lo ancho del arbol de intervalos
 void itree_recorrer_bfs(iTree raiz);
 
-void inorder(iTree raiz);
-
-
 // agregar descripcion
 iTree rotar_izq(iTree nodoPadre);
 
