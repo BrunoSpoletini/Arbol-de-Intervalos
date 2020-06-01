@@ -110,11 +110,46 @@ iTree itree_insertar(iTree nodo, intervalo dato){
 }
 
 
-void itree_recorrer_bfs(iTree nodo){
+void itree_recorrer_dfs(iTree nodo){
     if(nodo != NULL){
-        printf("[%.2f, %.2f]\n",nodo->intervalo->inicio, nodo->intervalo->final);
-        itree_recorrer_bfs(nodo->izq);
-        itree_recorrer_bfs(nodo->der);
+        itree_recorrer_dfs(nodo->izq);
+        printf("[%.2f, %.2f]  %d\n",nodo->intervalo->inicio, nodo->intervalo->final, nodo->maximo);
+        itree_recorrer_dfs(nodo->der);
     }
 }
 
+void itree_recorrer_bfs(iTree nodo){
+
+    if(nodo != NULL){
+    printf("[%.2f, %.2f]\n",nodo->intervalo->inicio, nodo->intervalo->final);
+    }
+
+}
+
+
+
+
+
+/*/
+void printGivenLevel(iTree nodo, int level) 
+{
+    if (nodo == NULL) 
+        return; 
+    if (level == 0){
+        printf("%.2f\n",nodo->intervalo->inicio);
+    }
+    else if (level > 1) 
+    { 
+        printGivenLevel(nodo->izq, level-1); 
+        printGivenLevel(nodo->der, level-1); 
+    } 
+} 
+
+void itree_recorrer_bfs(iTree nodo) 
+{ 
+    int i; 
+    for (i=0; i<=(nodo->altura); i++) {
+        printf("\n");
+        printGivenLevel(nodo, i); 
+    }
+} /*/
