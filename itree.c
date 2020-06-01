@@ -69,6 +69,7 @@ iTree balancear(iTree nodo){
             else{ //desequilibrio doble
                 //////nodo->izq = rotar_der(nodo->izq);
                 //////nodo = rotar_izq(nodo);
+                nodo->izq = rotar_izq(nodo->izq);
                 nodo = rotar_der(nodo);
             }
         }
@@ -81,7 +82,7 @@ iTree balancear(iTree nodo){
             else{ //desequilibrio doble
                 /////nodo->der = rotar_izq(nodo->der);
                 /////nodo = rotar_der(nodo);
-                nodo->izq = rotar_der(nodo->izq);
+                nodo->der = rotar_der(nodo->der);
                 nodo = rotar_izq(nodo);
             }
         }
@@ -107,34 +108,13 @@ iTree itree_insertar(iTree nodo, intervalo dato){
     
     return nodo;
 }
-/*/
-int main(){
-    iTree raiz = itree_crear();
-
-    intervalo dato = {1, 100};
-
-    raiz = itree_insertar(raiz, dato);
-
-    intervalo dato2 = {2, 200};
-    
-    raiz = itree_insertar(raiz, dato2);
-
-    intervalo dato3 = {3, 200};
-    
-    //printf("%f\n", raiz->intervalo->inicio);
-
-    raiz = itree_insertar(raiz, dato3);
-
-    intervalo dato4 = {4, 200};
-
-    intervalo dato5 = {5, 200};
-    raiz = itree_insertar(raiz, dato4);
-    raiz = itree_insertar(raiz, dato5);
 
 
-    printf("%f\n", raiz->der->intervalo->inicio);
-    
+void itree_recorrer_bfs(iTree nodo){
+    if(nodo != NULL){
+        printf("[%.2f, %.2f]\n",nodo->intervalo->inicio, nodo->intervalo->final);
+        itree_recorrer_bfs(nodo->izq);
+        itree_recorrer_bfs(nodo->der);
+    }
+}
 
-    itree_destruir(raiz);
-    return 0;
-}/*/

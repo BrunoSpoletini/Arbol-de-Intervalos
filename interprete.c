@@ -18,7 +18,8 @@ int main(){
         sscanf(entrada, "%s [%lf,%lf] \n", comando, &intervaloAux.inicio, &intervaloAux.final);
 
         if (strcmp(comando,"i") == 0)
-            itree_insertar(raiz, intervaloAux);
+            raiz = itree_insertar(raiz, intervaloAux);
+        
 /*/
         else if (strcmp(comando,"e") == 0)
             itree_eliminar(raiz, intervaloAux);
@@ -28,10 +29,10 @@ int main(){
 
         else if (strcmp(comando,"dfs") == 0)
             itree_recorrer_dfs(raiz);
-
+/*/
         else if (strcmp(comando,"bfs") == 0)
             itree_recorrer_bfs(raiz);
-/*/
+
         else if (strcmp(comando,"salir") == 0)
             salir = 1;
 
@@ -43,7 +44,6 @@ int main(){
         //printf("inicio: %lf\n",inicio);
         //printf("final: %lf\n",final);
     } while (salir == 0);
-
     itree_destruir(raiz);
 
     return 0;

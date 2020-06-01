@@ -12,11 +12,16 @@ desbalanceado
 
 factor de balance = altura derecha - altura izq
 
+gcc itree.c
 gcc interprete.c itree.c
 
 i [1, 100]
 i [2, 100]
 i [3, 100]
-i [4, 100]
-i [5, 100]
-i [6, 100]
+
+
+i [1, 100]
+i [0, 100]
+i [2, 100]
+i [3, 100]
+i [10, 100]
