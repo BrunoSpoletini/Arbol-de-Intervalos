@@ -118,7 +118,7 @@ iTree buscar_minimo(iTree nodo)
 { 
     iTree aux = nodo; 
 
-    for (; aux->der != NULL; aux = aux->der);
+    for (; aux->izq != NULL; aux = aux->izq);
   
     return aux; 
 } 
@@ -135,7 +135,6 @@ iTree itree_eliminar(iTree nodo, intervalo dato)
         nodo->der = itree_eliminar(nodo->der, dato); 
   
     else { 
-        // nodo with only one child or no child 
         if(nodo->izq == NULL) { 
             iTree aux = nodo->der;
   
@@ -143,27 +142,23 @@ iTree itree_eliminar(iTree nodo, intervalo dato)
                 liberar_nodo(nodo);
             else{
                 nodo = aux; 
-                free(aux); 
             }
         } else if(nodo->der == NULL) { 
             iTree aux = nodo->izq;
 
             nodo = aux; 
-            free(aux); 
-        }  
-        else
-        { 
-            iTree aux = buscar_minimo(nodo->izq); 
+        } else { 
+            iTree aux = buscar_minimo(nodo->der); 
   
             nodo->intervalo = aux->intervalo;
             intervalo dato = *(aux->intervalo);
   
-            nodo->izq = itree_eliminar(nodo->izq, dato); 
+            nodo->der = itree_eliminar(nodo->der, dato); 
         } 
     } 
-  
-    nodo = balancear(nodo);
+
     actualizar_altura(nodo);
+    nodo = balancear(nodo);
 
     return nodo; 
 } 
