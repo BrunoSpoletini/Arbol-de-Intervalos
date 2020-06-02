@@ -75,7 +75,7 @@ int main(){
         else if (strcmp(comando,"salir") == 0)
             salir = 1;
         else
-            printf("Comando no reconocido intente denuevo \n");
+            printf("Comando no reconocido, intente de nuevo \n");
     }
 
     itree_destruir(raiz);
