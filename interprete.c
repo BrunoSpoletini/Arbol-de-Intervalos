@@ -2,15 +2,10 @@
 #include <stdio.h>
 #include <string.h>
 
-
-
-
-
 int main(){
 
     char entrada[50], comando[10];
     int salir = 0;
-    //double inicio, final;
     intervalo intervaloAux;
 
     iTree raiz = itree_crear();
@@ -50,7 +45,6 @@ int main(){
         //printf("final: %lf\n",final);
     } while (salir == 0);/**/
 
-
     while(salir == 0){
         gets(entrada);
         sscanf(entrada, "%s [%lf,%lf] \n", comando, &intervaloAux.inicio, &intervaloAux.final);
@@ -60,10 +54,14 @@ int main(){
 
         else if (strcmp(comando,"e") == 0)
             itree_eliminar(raiz, intervaloAux);
-/*/
-        else if (strcmp(comando,"?") == 0)
-            itree_intersecar(raiz, intervaloAux);
-/*/
+
+        else if (strcmp(comando,"?") == 0){
+            if(itree_intersecar(raiz, intervaloAux) != NULL)
+                printf("Si\n");
+            else
+                printf("No\n");
+        }
+
         else if (strcmp(comando,"dfs") == 0){
             itree_recorrer_dfs(raiz, imprimir_intervalo);
             printf("\n");

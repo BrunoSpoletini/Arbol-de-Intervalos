@@ -19,6 +19,7 @@ iTree rotar_izq(iTree padre){
     iTree hijoDer = padre->der;
     padre->der = hijoDer->izq;
     hijoDer->izq = padre;
+    actualizar_altura(padre);
     return hijoDer;
 }
 
@@ -26,6 +27,7 @@ iTree rotar_der(iTree padre){
     iTree hijoIzq = padre->izq;
     padre->izq = hijoIzq->der;
     hijoIzq->der = padre;
+    actualizar_altura(padre);
     return hijoIzq;
 }
 
@@ -184,7 +186,7 @@ iTree itree_intersecar(iTree raiz, intervalo intersecar){
 }
 
 void imprimir_intervalo(iTree nodo){
-    printf("[%.2f, %.2f] ",nodo->intervalo->inicio, nodo->intervalo->final);
+    printf("[%.2f, %.2f]",nodo->intervalo->inicio, nodo->intervalo->final);
 }
 
 void itree_recorrer_dfs(iTree nodo, funcionVisitante func){
