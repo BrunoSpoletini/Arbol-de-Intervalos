@@ -54,10 +54,10 @@ int main(){
 
         if (strcmp(comando,"i") == 0)
             raiz = itree_insertar(raiz, intervaloAux);
-/*/
+
         else if (strcmp(comando,"e") == 0)
             itree_eliminar(raiz, intervaloAux);
-
+/*/
         else if (strcmp(comando,"?") == 0)
             itree_intersecar(raiz, intervaloAux);
 /*/

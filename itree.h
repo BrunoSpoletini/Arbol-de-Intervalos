@@ -68,19 +68,4 @@ iTree rotar_izq(iTree nodoPadre);
 // Realiza una rotacion hacia la derecha con respecto al nodo recibido
 iTree rotar_der(iTree nodoPadre);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 #endif /* __ITREE_H__ */
