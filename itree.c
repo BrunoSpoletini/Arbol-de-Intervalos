@@ -98,8 +98,14 @@ iTree itree_insertar(iTree nodo, intervalo dato){
             nodo->maximo = dato.final;
         if(dato.inicio == nodo->intervalo->inicio && dato.final == nodo->intervalo->final)
             return nodo;
-        if((dato.inicio) <= (nodo->intervalo->inicio))
+        if((dato.inicio) < (nodo->intervalo->inicio))
             nodo->izq = itree_insertar(nodo->izq, dato);
+        else if(dato.inicio == nodo->intervalo->inicio){
+            if(dato.final < nodo->intervalo->final)
+                nodo->izq = itree_insertar(nodo->izq, dato);
+            else
+                nodo->der = itree_insertar(nodo->der, dato);
+        }
         else
             nodo->der = itree_insertar(nodo->der, dato);
         nodo = balancear(nodo);

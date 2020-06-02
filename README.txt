@@ -20,9 +20,12 @@ factor de balance = altura derecha - altura izq
 gcc itree.c
 gcc interprete.c itree.c
 
-i [0, 100]
-i [5, 100]
-i [6, 100]
+i [1, 100]
+i [1, 200]
+i [1, 50]
+
+
+
 i [8, 100]
 i [15, 100]
 i [16, 100]
