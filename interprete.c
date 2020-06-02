@@ -3,6 +3,9 @@
 #include <string.h>
 
 
+
+
+
 int main(){
 
     char entrada[50], comando[10];
@@ -61,11 +64,13 @@ int main(){
         else if (strcmp(comando,"?") == 0)
             itree_intersecar(raiz, intervaloAux);
 /*/
-        else if (strcmp(comando,"dfs") == 0)
-            itree_recorrer_dfs(raiz);
+        else if (strcmp(comando,"dfs") == 0){
+            itree_recorrer_dfs(raiz, imprimir_intervalo);
+            printf("\n");
+        }
 
         else if (strcmp(comando,"bfs") == 0)
-            itree_recorrer_bfs(raiz);
+            itree_recorrer_bfs(raiz, imprimir_intervalo);
 
         else if (strcmp(comando,"salir") == 0)
             salir = 1;

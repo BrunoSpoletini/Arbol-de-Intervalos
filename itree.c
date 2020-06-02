@@ -86,6 +86,8 @@ iTree balancear(iTree nodo){
 
 
 iTree itree_insertar(iTree nodo, intervalo dato){
+    if(dato.inicio > dato.final)
+        return nodo;
     if(nodo == NULL){
         nodo = llenar_nodo(dato); 
     }
@@ -181,32 +183,35 @@ iTree itree_intersecar(iTree raiz, intervalo intersecar){
 
 }
 
+void imprimir_intervalo(iTree nodo){
+    printf("[%.2f, %.2f] ",nodo->intervalo->inicio, nodo->intervalo->final);
+}
 
-
-void itree_recorrer_dfs(iTree nodo){
+void itree_recorrer_dfs(iTree nodo, funcionVisitante func){
+    // In-Order
     if(nodo != NULL){
-        itree_recorrer_dfs(nodo->izq);
-        printf("[%.2f, %.2f]  %.2f\n",nodo->intervalo->inicio, nodo->intervalo->final, nodo->maximo);
-        itree_recorrer_dfs(nodo->der);
+        itree_recorrer_dfs(nodo->izq, func);
+        func(nodo);
+        itree_recorrer_dfs(nodo->der, func);
     }
 }
 
-void imprimirPorNivel(iTree nodo, int nivel){
+void imprimirPorNivel(iTree nodo, int nivel, funcionVisitante func){
     if(nodo != NULL){
         if(nivel == 0){
-            printf("%.2f ",nodo->intervalo->inicio);
+            func(nodo);
         }
         else if(nivel > 0){
-            imprimirPorNivel(nodo->izq, nivel-1);
-            imprimirPorNivel(nodo->der, nivel-1);
+            imprimirPorNivel(nodo->izq, nivel-1, func);
+            imprimirPorNivel(nodo->der, nivel-1, func);
         }
     }
 } 
 
-void itree_recorrer_bfs(iTree nodo){ 
+void itree_recorrer_bfs(iTree nodo, funcionVisitante func){ 
     for (int i = 0; i <= (nodo->altura); i++){
-        imprimirPorNivel(nodo, i);
-        printf("\n"); //Hay que borrar esta linea
+        imprimirPorNivel(nodo, i, func);
+        //printf("\n"); //Hay que borrar esta linea
     }
     printf("\n");
 }
