@@ -45,7 +45,7 @@ int main(){
         //printf("final: %lf\n",final);
     } while (salir == 0);/**/
 
-    intervaloAux.final = 100;
+/*/    intervaloAux.final = 100;
     intervaloAux.inicio = 10;
     raiz = itree_insertar(raiz, intervaloAux);
 
@@ -72,7 +72,7 @@ int main(){
 
     intervaloAux.inicio = 4;
     raiz = itree_insertar(raiz, intervaloAux);
-
+/*/
 
     while(salir == 0){
         intervaloAux.inicio = 0, intervaloAux.final = 0;

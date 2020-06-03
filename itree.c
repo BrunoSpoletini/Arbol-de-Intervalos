@@ -136,10 +136,10 @@ iTree itree_eliminar(iTree nodo, intervalo dato)
     if (nodo == NULL) 
         return nodo; 
 
-    if (dato.inicio < nodo->intervalo->inicio || (dato.inicio == nodo->intervalo->inicio && dato.final != nodo->intervalo->final)) 
+    if (dato.inicio < nodo->intervalo->inicio || (dato.inicio == nodo->intervalo->inicio && dato.final < nodo->intervalo->final)) 
         nodo->izq = itree_eliminar(nodo->izq, dato); 
   
-    else if (dato.inicio > nodo->intervalo->inicio) 
+    else if (dato.inicio > nodo->intervalo->inicio || (dato.inicio == nodo->intervalo->inicio && dato.final > nodo->intervalo->final))  
         nodo->der = itree_eliminar(nodo->der, dato); 
   
     else { 
