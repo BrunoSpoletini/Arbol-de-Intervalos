@@ -64,7 +64,7 @@ iTree llenar_nodo(intervalo dato){
 iTree balancear(iTree nodo){
     if(nodo != NULL){
         if((altura(nodo->der) - altura(nodo->izq)) == -2){
-             // desequilibrio hacia la izquierda!
+             // desequilibrio hacia la izquierda
             if (altura(nodo->izq->izq) >= altura(nodo->izq->der)){
                 // desequilibrio simple
                 nodo = rotar_der(nodo);
@@ -75,7 +75,7 @@ iTree balancear(iTree nodo){
             }
         }
         else if (altura (nodo->der) - altura (nodo->izq) == 2)
-            { // desequilibrio hacia la derecha! 
+            { // desequilibrio hacia la derecha 
             if (altura (nodo->der->der) >= altura (nodo->der->izq))
                 // desequilibrio simple
                 nodo = rotar_izq(nodo);
@@ -90,28 +90,25 @@ iTree balancear(iTree nodo){
 
 
 iTree itree_insertar(iTree nodo, intervalo dato){
-    if(dato.inicio > dato.final)
-        return nodo;
-    if(nodo == NULL){
+
+    if(nodo == NULL)
         nodo = llenar_nodo(dato); 
-    }
-    else{
+
+    else {
         if(nodo->maximo < dato.final)
             nodo->maximo = dato.final;
-        if(dato.inicio == nodo->intervalo->inicio && dato.final == nodo->intervalo->final)
-            return nodo;
-        if((dato.inicio) < (nodo->intervalo->inicio))
+
+        if (dato.inicio < nodo->intervalo->inicio || (dato.inicio == nodo->intervalo->inicio && dato.final < nodo->intervalo->final))
             nodo->izq = itree_insertar(nodo->izq, dato);
-        else if(dato.inicio == nodo->intervalo->inicio){
-            if(dato.final < nodo->intervalo->final)
-                nodo->izq = itree_insertar(nodo->izq, dato);
-            else
-                nodo->der = itree_insertar(nodo->der, dato);
-        }
-        else
+
+        else if (dato.inicio > nodo->intervalo->inicio || (dato.inicio == nodo->intervalo->inicio && dato.final > nodo->intervalo->final))
             nodo->der = itree_insertar(nodo->der, dato);
-        nodo = balancear(nodo);
+
+        else        // Ya existe ese nodo
+            return nodo;
+
         actualizar_altura(nodo);
+        nodo = balancear(nodo);
     }
     
     return nodo;
@@ -159,7 +156,7 @@ iTree itree_eliminar(iTree nodo, intervalo dato)
 
     actualizar_altura(nodo);
 
-    return balancear(nodo); 
+    return balancear(nodo);
 } 
 
 
