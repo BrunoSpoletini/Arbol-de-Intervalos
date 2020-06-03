@@ -84,7 +84,7 @@ int main(){
             raiz = itree_insertar(raiz, intervaloAux);
 
         else if (strcmp(comando,"e") == 0)
-            itree_eliminar(raiz, intervaloAux);
+            raiz = itree_eliminar(raiz, intervaloAux);
 
         else if (strcmp(comando,"?") == 0){
             if(itree_intersecar(raiz, intervaloAux) != NULL)

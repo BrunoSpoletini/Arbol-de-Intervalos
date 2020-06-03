@@ -20,8 +20,7 @@ iTree rotar_izq(iTree padre){
     padre->der = hijoDer->izq;
     hijoDer->izq = padre;
     actualizar_altura(padre);
-    padre->maximo = fmax(padre->intervalo->final, fmax(padre->izq->maximo,padre->der->maximo));
-    hijoDer->maximo = fmax(hijoDer->intervalo->final, fmax(hijoDer->izq->maximo,hijoDer->der->maximo));
+    actualizar_altura(hijoDer);
     return hijoDer;
 }
 
@@ -30,8 +29,7 @@ iTree rotar_der(iTree padre){
     padre->izq = hijoIzq->der;
     hijoIzq->der = padre;
     actualizar_altura(padre);
-    padre->maximo = fmax(padre->intervalo->final, fmax(padre->izq->maximo,padre->der->maximo));
-    hijoIzq->maximo = fmax(hijoIzq->intervalo->final, fmax(hijoIzq->izq->maximo,hijoIzq->der->maximo));
+    actualizar_altura(hijoIzq);
     return hijoIzq;
 }
 
@@ -119,17 +117,6 @@ iTree itree_insertar(iTree nodo, intervalo dato){
     return nodo;
 }
 
-
-
-
-
-
-
-
-
-
-
-
 void liberar_nodo(iTree nodo){
     free(nodo->intervalo);
     free(nodo);
@@ -146,9 +133,6 @@ iTree buscar_minimo(iTree nodo)
 
 iTree itree_eliminar(iTree nodo, intervalo dato) 
 {   
-    printf("[%.2f, %.2f] nodo   \n",nodo->intervalo->inicio, nodo->intervalo->final);
-    printf("[%.2f, %.2f] dato   \n",dato.inicio, dato.final);
-
     if (nodo == NULL) 
         return nodo; 
 
@@ -159,26 +143,10 @@ iTree itree_eliminar(iTree nodo, intervalo dato)
         nodo->der = itree_eliminar(nodo->der, dato); 
   
     else { 
-        if(nodo->izq == NULL) { 
-            iTree aux = nodo->der;
-  
-            if (aux == NULL) {
-                printf("No tiene hijo derecho ni izq\n");
-                aux = nodo;
-                nodo = NULL;
-            } else {
-                printf("No tiene hijo izq\n");
-                *(nodo->intervalo) = *(aux->intervalo);
-                nodo->der = NULL;
-            }
-            liberar_nodo(aux);
-        } else if(nodo->der == NULL) { 
-            iTree aux = nodo->izq;
-            printf("No tiene hijo derecho\n");
-            *(nodo->intervalo) = *(aux->intervalo);
-            nodo->izq = NULL;
-            
-            liberar_nodo(aux);
+        if(nodo->izq == NULL || nodo->der == NULL) { 
+            iTree aux = nodo->izq ? nodo->izq : nodo->der;
+            liberar_nodo(nodo);
+            nodo = aux;
         
         } else { 
             iTree aux = buscar_minimo(nodo->der); 
@@ -190,9 +158,8 @@ iTree itree_eliminar(iTree nodo, intervalo dato)
     } 
 
     actualizar_altura(nodo);
-    nodo = balancear(nodo);
 
-    return nodo; 
+    return balancear(nodo); 
 } 
 
 
