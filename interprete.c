@@ -45,31 +45,39 @@ int main(){
         //printf("final: %lf\n",final);
     } while (salir == 0);/**/
 
-    intervaloAux.final = 100;
+    intervaloAux.final = 25;
     intervaloAux.inicio = 10;
     raiz = itree_insertar(raiz, intervaloAux);
 
+    intervaloAux.final = 6;
     intervaloAux.inicio = 5;
     raiz = itree_insertar(raiz, intervaloAux);
 
+    intervaloAux.final = 17;
     intervaloAux.inicio = 15;
     raiz = itree_insertar(raiz, intervaloAux);
 
+    intervaloAux.final = 63;
     intervaloAux.inicio = 3;
     raiz = itree_insertar(raiz, intervaloAux);
 
+    intervaloAux.final = 55;
     intervaloAux.inicio = 6;
     raiz = itree_insertar(raiz, intervaloAux);
 
+    intervaloAux.final = 23;
     intervaloAux.inicio = 14;
     raiz = itree_insertar(raiz, intervaloAux);
 
+    intervaloAux.final = 56;
     intervaloAux.inicio = 16;
     raiz = itree_insertar(raiz, intervaloAux);
 
+    intervaloAux.final = 3;
     intervaloAux.inicio = 2;
     raiz = itree_insertar(raiz, intervaloAux);
 
+    intervaloAux.final = 5;
     intervaloAux.inicio = 4;
     raiz = itree_insertar(raiz, intervaloAux);
 
@@ -86,12 +94,8 @@ int main(){
         else if (strcmp(comando,"e") == 0)
             raiz = itree_eliminar(raiz, intervaloAux);
 
-        else if (strcmp(comando,"?") == 0){
-            if(itree_intersecar(raiz, intervaloAux) != NULL)
-                printf("Si\n");
-            else
-                printf("No\n");
-        }
+        else if (strcmp(comando,"?") == 0)
+            itree_intersecar(raiz, intervaloAux, imprimir_intervalo);
 
         else if (strcmp(comando,"dfs") == 0){
             itree_recorrer_dfs(raiz, imprimir_intervalo);

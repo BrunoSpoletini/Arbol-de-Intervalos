@@ -15,12 +15,27 @@ void itree_destruir(iTree nodo){
     }
 }
 
+void actualizar_maximo (iTree nodo){
+    if(nodo != NULL){
+        if(nodo->izq == NULL || nodo->der == NULL) { 
+            iTree aux = nodo->izq ? nodo->izq : nodo->der;
+            if (aux == NULL)
+                nodo->maximo = nodo->intervalo->final;
+            else
+            nodo->maximo = fmax(nodo->intervalo->final, aux->maximo);
+        } else
+            nodo->maximo = fmax(nodo->intervalo->final, fmax(nodo->izq->maximo, nodo->der->maximo));   
+    }
+}
+
 iTree rotar_izq(iTree padre){
     iTree hijoDer = padre->der;
     padre->der = hijoDer->izq;
     hijoDer->izq = padre;
     actualizar_altura(padre);
+    actualizar_maximo(padre);
     actualizar_altura(hijoDer);
+    actualizar_maximo(hijoDer);
     return hijoDer;
 }
 
@@ -29,7 +44,9 @@ iTree rotar_der(iTree padre){
     padre->izq = hijoIzq->der;
     hijoIzq->der = padre;
     actualizar_altura(padre);
+    actualizar_maximo(padre);
     actualizar_altura(hijoIzq);
+    actualizar_maximo(hijoIzq);
     return hijoIzq;
 }
 
@@ -45,6 +62,7 @@ void actualizar_altura(iTree nodo){
         nodo->altura = fmax(altura(nodo->izq), altura(nodo->der)) + 1;
     }
 }
+
 
 iTree llenar_nodo(intervalo dato){
     iTree nodo = malloc(sizeof(iNodo));
@@ -119,8 +137,7 @@ void liberar_nodo(iTree nodo){
     free(nodo);
 }
 
-iTree buscar_minimo(iTree nodo) 
-{ 
+iTree buscar_sucesor(iTree nodo) { 
     iTree aux = nodo; 
 
     for (; aux->izq != NULL; aux = aux->izq);
@@ -128,8 +145,7 @@ iTree buscar_minimo(iTree nodo)
     return aux; 
 } 
 
-iTree itree_eliminar(iTree nodo, intervalo dato) 
-{   
+iTree itree_eliminar(iTree nodo, intervalo dato) {   
     if (nodo == NULL) 
         return nodo; 
 
@@ -146,7 +162,7 @@ iTree itree_eliminar(iTree nodo, intervalo dato)
             nodo = aux;
         
         } else { 
-            iTree aux = buscar_minimo(nodo->der); 
+            iTree aux = buscar_sucesor(nodo->der); 
   
             *(nodo->intervalo) = *(aux->intervalo);
   
@@ -155,6 +171,7 @@ iTree itree_eliminar(iTree nodo, intervalo dato)
     } 
 
     actualizar_altura(nodo);
+    actualizar_maximo (nodo);
 
     return balancear(nodo);
 } 
@@ -166,7 +183,7 @@ iTree itree_eliminar(iTree nodo, intervalo dato)
 
 
 
-iTree itree_intersecar(iTree raiz, intervalo intersecar){
+iTree itree_intersecar(iTree raiz, intervalo intersecar, funcionVisitante func){
 
 }
 
@@ -179,7 +196,7 @@ void itree_recorrer_dfs(iTree nodo, funcionVisitante func){
     if(nodo != NULL){
         itree_recorrer_dfs(nodo->izq, func);
         func(nodo);
-        printf ("altura: %d, max: %.2f\n", nodo->altura, nodo->maximo);
+        printf ("altura: %d, max: %.2f\n", nodo->altura, nodo->maximo);  // testeo borrar dsp
         itree_recorrer_dfs(nodo->der, func);
     }
 }
@@ -197,11 +214,13 @@ void imprimirPorNivel(iTree nodo, int nivel, funcionVisitante func){
 } 
 
 void itree_recorrer_bfs(iTree nodo, funcionVisitante func){ 
-    for (int i = 0; i <= (nodo->altura); i++){
-        imprimirPorNivel(nodo, i, func);
-        //printf("\n"); //Hay que borrar esta linea
+    if(nodo != NULL){
+        for (int i = 0; i <= (nodo->altura); i++){
+            imprimirPorNivel(nodo, i, func);
+            //printf("\n"); //Hay que borrar esta linea
+        }
+        printf("\n");
     }
-    printf("\n");
 }
 
 
