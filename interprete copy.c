@@ -44,7 +44,6 @@ int main(){
         //printf("inicio: %lf\n",inicio);
         //printf("final: %lf\n",final);
     } while (salir == 0);/**/
-
     intervaloAux.final = 100;
     intervaloAux.inicio = 10;
     raiz = itree_insertar(raiz, intervaloAux);
@@ -75,10 +74,8 @@ int main(){
 
 
     while(salir == 0){
-        intervaloAux.inicio = 0, intervaloAux.final = 0;
         gets(entrada);
         sscanf(entrada, "%s [%lf,%lf] \n", comando, &intervaloAux.inicio, &intervaloAux.final);
-        //printf("[%.2f, %.2f] dato   \n",intervaloAux.inicio, intervaloAux.final); checkear [1, 1ffsadfas222]
 
         if (strcmp(comando,"i") == 0)
             raiz = itree_insertar(raiz, intervaloAux);

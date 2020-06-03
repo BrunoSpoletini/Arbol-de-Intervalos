@@ -20,8 +20,7 @@ iTree rotar_izq(iTree padre){
     padre->der = hijoDer->izq;
     hijoDer->izq = padre;
     actualizar_altura(padre);
-    padre->maximo = fmax(padre->intervalo->final, fmax(padre->izq->maximo,padre->der->maximo));
-    hijoDer->maximo = fmax(hijoDer->intervalo->final, fmax(hijoDer->izq->maximo,hijoDer->der->maximo));
+    actualizar_altura(hijoDer);
     return hijoDer;
 }
 
@@ -30,8 +29,7 @@ iTree rotar_der(iTree padre){
     padre->izq = hijoIzq->der;
     hijoIzq->der = padre;
     actualizar_altura(padre);
-    padre->maximo = fmax(padre->intervalo->final, fmax(padre->izq->maximo,padre->der->maximo));
-    hijoIzq->maximo = fmax(hijoIzq->intervalo->final, fmax(hijoIzq->izq->maximo,hijoIzq->der->maximo));
+    actualizar_altura(hijoIzq);
     return hijoIzq;
 }
 
@@ -102,14 +100,8 @@ iTree itree_insertar(iTree nodo, intervalo dato){
             nodo->maximo = dato.final;
         if(dato.inicio == nodo->intervalo->inicio && dato.final == nodo->intervalo->final)
             return nodo;
-        if((dato.inicio) < (nodo->intervalo->inicio))
+        if((dato.inicio) <= (nodo->intervalo->inicio))
             nodo->izq = itree_insertar(nodo->izq, dato);
-        else if(dato.inicio == nodo->intervalo->inicio){
-            if(dato.final < nodo->intervalo->final)
-                nodo->izq = itree_insertar(nodo->izq, dato);
-            else
-                nodo->der = itree_insertar(nodo->der, dato);
-        }
         else
             nodo->der = itree_insertar(nodo->der, dato);
         nodo = balancear(nodo);
@@ -132,7 +124,9 @@ iTree itree_insertar(iTree nodo, intervalo dato){
 
 void liberar_nodo(iTree nodo){
     free(nodo->intervalo);
+    printf("chau Intervalo \n");
     free(nodo);
+    printf("chau nodo \n");
 }
 
 iTree buscar_minimo(iTree nodo) 
@@ -152,7 +146,7 @@ iTree itree_eliminar(iTree nodo, intervalo dato)
     if (nodo == NULL) 
         return nodo; 
 
-    if (dato.inicio < nodo->intervalo->inicio || (dato.inicio == nodo->intervalo->inicio && dato.final != nodo->intervalo->final)) 
+    if (dato.inicio <= nodo->intervalo->inicio && dato.final != nodo->intervalo->final) 
         nodo->izq = itree_eliminar(nodo->izq, dato); 
   
     else if (dato.inicio > nodo->intervalo->inicio) 
@@ -168,16 +162,15 @@ iTree itree_eliminar(iTree nodo, intervalo dato)
                 nodo = NULL;
             } else {
                 printf("No tiene hijo izq\n");
+                nodo = aux;
                 *(nodo->intervalo) = *(aux->intervalo);
-                nodo->der = NULL;
             }
             liberar_nodo(aux);
         } else if(nodo->der == NULL) { 
             iTree aux = nodo->izq;
             printf("No tiene hijo derecho\n");
+            nodo = aux;
             *(nodo->intervalo) = *(aux->intervalo);
-            nodo->izq = NULL;
-            
             liberar_nodo(aux);
         
         } else { 
@@ -194,7 +187,6 @@ iTree itree_eliminar(iTree nodo, intervalo dato)
 
     return nodo; 
 } 
-
 
 
 
