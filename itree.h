@@ -4,11 +4,7 @@
 #include <stddef.h>
 #include <stdlib.h>
 #include <stdio.h>
-
-typedef struct _intervalo{
-  double inicio;
-  double final;
-}intervalo;
+#include "intervalo.h"
 
 
 typedef struct _iNodo{
@@ -73,8 +69,6 @@ iTree rotar_izq(iTree nodoPadre);
 
 // Realiza una rotacion hacia la derecha con respecto al nodo recibido
 iTree rotar_der(iTree nodoPadre);
-
-int intersecar(intervalo datoNodo, intervalo datoRecibido);
 
 
 #endif /* __ITREE_H__ */

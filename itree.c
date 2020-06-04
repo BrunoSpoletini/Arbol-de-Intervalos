@@ -177,11 +177,6 @@ iTree itree_eliminar(iTree nodo, intervalo dato) {
 } 
 
 
-int intersecar(intervalo datoNodo, intervalo datoRecibido) {
-    return !(datoNodo.final < datoRecibido.inicio || datoNodo.inicio > datoRecibido.final);
-}
-
-
 iTree itree_intersecar(iTree nodo, intervalo dato){
     if(nodo == NULL || dato.inicio > nodo->maximo)
         return NULL;   
