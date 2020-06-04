@@ -37,7 +37,7 @@ iTree itree_eliminar(iTree raiz, intervalo dato);
 
 // Determina si un intervalo se interseca con alguno de los intervalos del arbol y, en caso afirmativo,
 // retorna un apuntador al nodo correspondiente.
-iTree itree_intersecar(iTree raiz, intervalo intersecar, funcionVisitante func);
+iTree itree_intersecar(iTree raiz, intervalo intersecar);
 
 // Recorrido primero en profundidad del arbol de intervalos
 void itree_recorrer_dfs(iTree raiz, funcionVisitante func);
@@ -65,6 +65,7 @@ void imprimirPorNivel(iTree nodo, int nivel, funcionVisitante func);
 // Recibe un nodo e imprime el intervalo que este contiene
 void imprimir_intervalo(iTree nodo);
 
+// Actualiza el valor maximo de un nodo dado
 void actualizar_maximo (iTree nodo);
 
 // Realiza una rotacion hacia la izquierda con respecto al nodo recibido
@@ -72,6 +73,8 @@ iTree rotar_izq(iTree nodoPadre);
 
 // Realiza una rotacion hacia la derecha con respecto al nodo recibido
 iTree rotar_der(iTree nodoPadre);
+
+int intersecar(intervalo datoNodo, intervalo datoRecibido);
 
 
 #endif /* __ITREE_H__ */

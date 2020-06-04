@@ -177,14 +177,22 @@ iTree itree_eliminar(iTree nodo, intervalo dato) {
 } 
 
 
+int intersecar(intervalo datoNodo, intervalo datoRecibido) {
+    return !(datoNodo.final < datoRecibido.inicio || datoNodo.inicio > datoRecibido.final);
+}
 
 
-
-
-
-
-iTree itree_intersecar(iTree raiz, intervalo intersecar, funcionVisitante func){
-
+iTree itree_intersecar(iTree nodo, intervalo dato){
+    if(nodo == NULL || dato.inicio > nodo->maximo)
+        return NULL;   
+    if (intersecar(*(nodo->intervalo), dato))
+        return nodo;
+    if (nodo->izq != NULL && dato.inicio <= nodo->izq->maximo && dato.inicio >= nodo->intervalo->inicio)
+        return itree_intersecar(nodo->izq, dato);
+    if (dato.inicio < nodo->intervalo->inicio || (dato.inicio == nodo->intervalo->inicio && dato.final < nodo->intervalo->final))
+        return itree_intersecar(nodo->izq, dato);
+    if (dato.inicio > nodo->intervalo->inicio || (dato.inicio == nodo->intervalo->inicio && dato.final > nodo->intervalo->final))
+        return itree_intersecar(nodo->der, dato);
 }
 
 void imprimir_intervalo(iTree nodo){
