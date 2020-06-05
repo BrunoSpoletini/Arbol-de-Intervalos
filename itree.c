@@ -183,6 +183,7 @@ iTree itree_intersecar(iTree nodo, intervalo dato){
         return itree_intersecar(nodo->izq, dato);
     if (dato.inicio > nodo->intervalo->inicio || (dato.inicio == nodo->intervalo->inicio && dato.final > nodo->intervalo->final))
         return itree_intersecar(nodo->der, dato);
+    return NULL;
 }
 
 void imprimir_intervalo(iTree nodo){
