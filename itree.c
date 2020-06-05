@@ -195,7 +195,6 @@ void itree_recorrer_dfs(iTree nodo, funcionVisitante func){
     if(nodo != NULL){
         itree_recorrer_dfs(nodo->izq, func);
         func(nodo);
-        printf ("altura: %d, max: %.2f\n", nodo->altura, nodo->maximo);  // testeo borrar dsp
         itree_recorrer_dfs(nodo->der, func);
     }
 }
@@ -216,9 +215,7 @@ void itree_recorrer_bfs(iTree nodo, funcionVisitante func){
     if(nodo != NULL){
         for (int i = 0; i <= (nodo->altura); i++){
             imprimirPorNivel(nodo, i, func);
-            //printf("\n"); //Hay que borrar esta linea
         }
-        printf("\n");
     }
 }
 

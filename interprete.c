@@ -3,19 +3,19 @@
 #include <string.h>
 #define MAX_LINEA 1001
 
-int main(){
-
-    char entrada[MAX_LINEA], comando[10];
+void leer_entrada(iTree raiz){
+    char comando, entrada[MAX_LINEA];
+    iTree nodo;
     intervalo intervaloAux;
     int largoEntrada;
 
-    iTree raiz = itree_crear(), nodo;
+    while(strcmp(entrada, "salir\0") != 0) {
 
-    printf("Ingrese i para insertar, e para eliminar, ? para intersecar, dfs, bfs, salir \n");
+        fgets(entrada, sizeof(entrada), stdin);
 
-    while(strcmp(gets(entrada),"salir\0") != 0) {
-
-        largoEntrada = strlen(entrada);
+        largoEntrada = strlen(entrada)-1;
+        if (largoEntrada > 0)
+            entrada[largoEntrada] = '\0';
 
         if (largoEntrada == 3){
 
@@ -31,30 +31,41 @@ int main(){
         }
 
         else if (largoEntrada >= 7){
-            if (sscanf(entrada, "%s [%lf,%lf] \n", comando, &intervaloAux.inicio, &intervaloAux.final) == 3){
-                if (entrada[0] == 'i' && entrada[1] == ' ')
-                    raiz = itree_insertar(raiz, intervaloAux);
+            if (sscanf(entrada, "%c [%lf,%lf] \n", &comando, &intervaloAux.inicio, &intervaloAux.final) == 3){
 
-                else if (entrada[0] == 'e' && entrada[1] == ' ')
-                    raiz = itree_eliminar(raiz, intervaloAux);
+                if (intervalo_valido(intervaloAux)) {
+                    if (entrada[0] == 'i' && entrada[1] == ' ' && entrada[2] == '[')
+                        raiz = itree_insertar(raiz, intervaloAux);
 
-                else if (entrada[0] == '?' && entrada[1] == ' '){
-                    nodo = itree_intersecar(raiz, intervaloAux);
-                    if (nodo == NULL)
-                        printf("No\n");
-                    else {
-                        printf ("Si, ");
-                        imprimir_intervalo(nodo);
-                        printf ("\n");
-                    }
+                    else if (entrada[0] == 'e' && entrada[1] == ' ' && entrada[2] == '[')
+                        raiz = itree_eliminar(raiz, intervaloAux);
+
+                    else if (entrada[0] == '?' && entrada[1] == ' ' && entrada[2] == '['){
+                        nodo = itree_intersecar(raiz, intervaloAux);
+                        if (nodo == NULL)
+                            printf("No\n");
+                        else {
+                            printf ("Si, ");
+                            imprimir_intervalo(nodo);
+                            printf ("\n");
+                        }
+                    } else
+                        printf("Comando no reconocido\n");
                 } else
-                    printf("Comando no reconocido\n");
-                
+                    printf("Intervalo invalido\n");                              
             } else
-                printf("Cantidad de argumentos incorrectos\n");
+                printf("Entrada invalida\n");
         } else
             printf("Largo de la entrada incorrecto\n");
     }
+}
+
+int main(){
+    iTree raiz = itree_crear();
+
+    printf("Ingrese i para insertar, e para eliminar, ? para intersecar, dfs, bfs, salir \n");
+
+    leer_entrada (raiz);
 
     itree_destruir(raiz);
 
