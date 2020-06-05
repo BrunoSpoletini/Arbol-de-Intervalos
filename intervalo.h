@@ -10,4 +10,6 @@ int intersecar(intervalo primero, intervalo segundo);
 
 int intervalo_valido(intervalo dato);
 
+intervalo* llenar_intervalo(intervalo dato);
+
 #endif /* __INTERVALO_H__ */

@@ -68,12 +68,7 @@ iTree llenar_nodo(intervalo dato){
     iTree nodo = malloc(sizeof(iNodo));
     nodo->izq = NULL;
     nodo->der = NULL;
-    nodo->intervalo = malloc(sizeof(intervalo));
-
-    intervalo* nuevoIntervalo = malloc(sizeof(intervalo));
-    nuevoIntervalo->inicio = dato.inicio;
-    nuevoIntervalo->final = dato.final;
-    nodo->intervalo = nuevoIntervalo;
+    nodo->intervalo = llenar_intervalo(dato);
     nodo->maximo = dato.final;
     nodo->altura = 0;
     return nodo;

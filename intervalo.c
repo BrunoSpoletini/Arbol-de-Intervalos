@@ -10,3 +10,10 @@ int intervalo_valido(intervalo dato){
         return 0;
     return 1;
 }
+
+intervalo* llenar_intervalo(intervalo dato){
+    intervalo* nuevoIntervalo = malloc(sizeof(intervalo));
+    nuevoIntervalo->inicio = dato.inicio;
+    nuevoIntervalo->final = dato.final;
+    return nuevoIntervalo;
+}
