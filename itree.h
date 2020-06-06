@@ -5,70 +5,73 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include "intervalo.h"
+#define MAX(a,b) (((a)>(b))?(a):(b))
 
 
-typedef struct _iNodo{
-  intervalo *intervalo;
+typedef struct _INodo{
+  Intervalo *intervalo;
   double maximo;
   int altura;
-  struct _iNodo *izq;
-  struct _iNodo *der;
-} iNodo;
+  struct _INodo *izq;
+  struct _INodo *der;
+} INodo;
 
-typedef iNodo *iTree;
+typedef INodo *ITree;
 
-typedef void (*funcionVisitante) (iTree nodo);
+typedef void (*FuncionVisitante) (ITree nodo);
 
-// Crea un arbol de intervalos vacio
-iTree itree_crear();
+// Crea un arbol de intervalos vacio.
+ITree itree_crear();
 
-// Destruye un arbol de intervalos
-void itree_destruir(iTree nodo);
+// Destruye un arbol de intervalos.
+void itree_destruir(ITree nodo);
 
-// Inserta un intervalo en un arbol de intervalos
-iTree itree_insertar(iTree raiz, intervalo dato);
+// Inserta un intervalo en un arbol de intervalos.
+ITree itree_insertar(ITree raiz, Intervalo dato);
 
-// Elimina un intervalo de un arbol de intervalos
-iTree itree_eliminar(iTree raiz, intervalo dato);
+// Elimina un intervalo de un arbol de intervalos.
+ITree itree_eliminar(ITree raiz, Intervalo dato);
 
 // Determina si un intervalo se interseca con alguno de los intervalos del arbol y, en caso afirmativo,
 // retorna un apuntador al nodo correspondiente.
-iTree itree_intersecar(iTree raiz, intervalo intersecar);
+ITree itree_intersecar(ITree raiz, Intervalo intersecar);
 
-// Recorrido primero en profundidad del arbol de intervalos
-void itree_recorrer_dfs(iTree raiz, funcionVisitante func);
+// Recorrido primero en profundidad del arbol de intervalos.
+void itree_recorrer_dfs(ITree raiz, FuncionVisitante func);
 
-// Recorrido primero a lo ancho del arbol de intervalos
-void itree_recorrer_bfs(iTree raiz, funcionVisitante func);
+// Recorrido primero a lo ancho del arbol de intervalos.
+void itree_recorrer_bfs(ITree raiz, FuncionVisitante func);
 
 
 //----------Funciones auxiliares------------//
-// Devuelve un nodo de tipo iTree que contiene al intervalo dato
-iTree llenar_nodo(intervalo dato);
+// Devuelve la altura de un nodo, o -1 en caso de que reciba NULL.
+int altura(ITree nodo);
 
-// Actualiza la altura de un nodo dado
-void actualizar_altura(iTree nodo);
+// Actualiza la altura de un nodo dado.
+void actualizar_altura(ITree nodo);
 
-// Devuelve la altura de un nodo, o -1 en caso de que reciba NULL
-int altura(iTree nodo);
+// Actualiza el valor maximo de un nodo dado teniendo en cuenta los valores maximos de sus hijos.
+void actualizar_maximo (ITree nodo);
 
-// Recibe un nodo, y corrige el desbalance de las ramas
-iTree balancear(iTree nodo);
+// Devuelve un nodo de tipo iTree que contiene al intervalo dato.
+ITree llenar_nodo(Intervalo dato);
 
-// Imprime por pantalla la información de los nodos de la altura dada
-void imprimirPorNivel(iTree nodo, int nivel, funcionVisitante func);
+// Libera el espacio ocupado en memoria por el nodo y su respectivo intervalo.
+void liberar_nodo(ITree nodo);
 
-// Recibe un nodo e imprime el intervalo que este contiene
-void imprimir_intervalo(iTree nodo);
+// Realiza una rotacion hacia la izquierda con respecto al nodo recibido.
+ITree rotar_izq(ITree nodoPadre);
 
-// Actualiza el valor maximo de un nodo dado
-void actualizar_maximo (iTree nodo);
+// Realiza una rotacion hacia la derecha con respecto al nodo recibido.
+ITree rotar_der(ITree nodoPadre);
 
-// Realiza una rotacion hacia la izquierda con respecto al nodo recibido
-iTree rotar_izq(iTree nodoPadre);
+// Recibe un nodo, y corrige el desbalance de las ramas.
+ITree balancear(ITree nodo);
 
-// Realiza una rotacion hacia la derecha con respecto al nodo recibido
-iTree rotar_der(iTree nodoPadre);
+// Imprime por pantalla la información de los nodos de la altura dada.
+void imprimir_por_nivel(ITree nodo, int nivel, FuncionVisitante func);
 
+// Recibe un nodo e imprime el intervalo que este contiene.
+void imprimir_intervalo(ITree nodo);
 
 #endif /* __ITREE_H__ */

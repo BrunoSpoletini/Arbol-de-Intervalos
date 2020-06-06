@@ -1,19 +1,20 @@
 #include "intervalo.h"
 #include <stdlib.h>
 
-int intersecar(intervalo primero, intervalo segundo) {
-    return !(primero.final < segundo.inicio || primero.inicio > segundo.final);
+Intervalo* llenar_intervalo(Intervalo dato) {
+    Intervalo* nuevoIntervalo = malloc(sizeof(Intervalo));
+    nuevoIntervalo->inicio = dato.inicio;
+    nuevoIntervalo->final = dato.final;
+
+    return nuevoIntervalo;
 }
 
-int intervalo_valido(intervalo dato){
+int intervalo_valido(Intervalo dato) {
     if (dato.inicio > dato.final)
         return 0;
     return 1;
 }
 
-intervalo* llenar_intervalo(intervalo dato){
-    intervalo* nuevoIntervalo = malloc(sizeof(intervalo));
-    nuevoIntervalo->inicio = dato.inicio;
-    nuevoIntervalo->final = dato.final;
-    return nuevoIntervalo;
+int intersecar(Intervalo primero, Intervalo segundo) {
+    return !(primero.final < segundo.inicio || primero.inicio > segundo.final);
 }
