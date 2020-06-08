@@ -21,21 +21,22 @@ ITree leer_entrada(ITree raiz) {
       } else if (strcmp(entrada, "bfs") == 0) {
         itree_recorrer_bfs(raiz, imprimir_intervalo);
         printf("\n");
-      }
+      } else
+          printf("Comando no reconocido\n");
 
     } else if (largoEntrada >= 7) {     // minima cantidad de caracteres "i [a,b]" es 7
       if (sscanf
           (entrada, "%c [%lf,%lf] \n", &comando, &intervaloAux.inicio,
            &intervaloAux.final) == 3) {
 
-        if (intervalo_valido(intervaloAux)) {
-          if (entrada[0] == 'i' && entrada[1] == ' ' && entrada[2] == '[')
+        if (intervalo_valido(intervaloAux) && entrada[1] == ' ' && entrada[2] == '[') {
+          if (entrada[0] == 'i')
             raiz = itree_insertar(raiz, intervaloAux);
 
-          else if (entrada[0] == 'e' && entrada[1] == ' ' && entrada[2] == '[')
+          else if (entrada[0] == 'e')
             raiz = itree_eliminar(raiz, intervaloAux);
 
-          else if (entrada[0] == '?' && entrada[1] == ' ' && entrada[2] == '[') {
+          else if (entrada[0] == '?') {
             nodo = itree_intersecar(raiz, intervaloAux);
             if (nodo == NULL)
               printf("No\n");
