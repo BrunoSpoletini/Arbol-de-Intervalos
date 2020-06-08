@@ -75,3 +75,4 @@ void imprimir_por_nivel(ITree nodo, int nivel, FuncionVisitante func);
 void imprimir_intervalo(ITree nodo);
 
 #endif                          /* __ITREE_H__ */
+
