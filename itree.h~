@@ -8,7 +8,7 @@
 #define MAX(a,b) (((a)>(b))?(a):(b))
 
 
-typedef struct _INodo {
+typedef struct _INodo{
   Intervalo *intervalo;
   double maximo;
   int altura;
@@ -51,7 +51,7 @@ int altura(ITree nodo);
 void actualizar_altura(ITree nodo);
 
 // Actualiza el valor maximo de un nodo dado teniendo en cuenta los valores maximos de sus hijos.
-void actualizar_maximo(ITree nodo);
+void actualizar_maximo (ITree nodo);
 
 // Devuelve un nodo de tipo iTree que contiene al intervalo dato.
 ITree llenar_nodo(Intervalo dato);
@@ -74,4 +74,4 @@ void imprimir_por_nivel(ITree nodo, int nivel, FuncionVisitante func);
 // Recibe un nodo e imprime el intervalo que este contiene.
 void imprimir_intervalo(ITree nodo);
 
-#endif                          /* __ITREE_H__ */
+#endif /* __ITREE_H__ */
